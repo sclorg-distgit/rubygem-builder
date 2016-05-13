@@ -6,7 +6,7 @@
 Summary: Builders for MarkUp
 Name: %{?scl_prefix}rubygem-%{gem_name}
 Version: 3.2.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 Group: Development/Languages
 License: MIT
 URL: http://onestepback.org
@@ -73,6 +73,7 @@ sed -i 's|def name|def bobs_name|' ./test/test_markupbuilder.rb
 sed -i 's|(name)|("bob")|' ./test/test_markupbuilder.rb
 
 %{?scl:scl enable %{scl} - << \EOF}
+set -e
 ruby -rminitest/autorun -rrubygems -I.:lib:test - << \EOR
   module Kernel
     alias orig_require require
@@ -117,6 +118,9 @@ popd
 %{gem_instdir}/test/
 
 %changelog
+* Wed Apr 06 2016 Pavel Valena <pvalena@redhat.com> - 3.2.2-7
+- Fix: build should fail on test failure
+
 * Fri Feb 19 2016 Pavel Valena <pvalena@redhat.com> - 3.2.2-6
 - Add scl macros
 
